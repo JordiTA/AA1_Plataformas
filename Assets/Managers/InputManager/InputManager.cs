@@ -72,10 +72,6 @@ public class InputManager : MonoBehaviour
     {
         return this.timeSinceJumpPressed == 0f;
     }
-    public float TimeSinceSouthButtonPressed()
-    {
-        return this.timeSinceJumpPressed;
-    }
     public float GetMouseX()
     {
         return mouseX;
@@ -83,5 +79,10 @@ public class InputManager : MonoBehaviour
     public float GetMouseY()
     {
         return mouseY;
+    }
+    public float GetMovementValue()
+    {
+        float value = leftAxisValue.x * leftAxisValue.x + leftAxisValue.y * leftAxisValue.y;
+        return value;
     }
 }

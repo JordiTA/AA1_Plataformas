@@ -1644,6 +1644,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 9975e01cc6d2e55468ec0c1b42c70245, type: 2}
+    - target: {fileID: 5866666021909216657, guid: f3bc2da085c2d6b41a5222f9a847efcf, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3bc2da085c2d6b41a5222f9a847efcf, type: 3}
 --- !u!1001 &536391453
@@ -4267,6 +4271,18 @@ MonoBehaviour:
   Camera: {fileID: 516460895}
   jumpHeight: 1
   gravity: -10
+--- !u!114 &1274523683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274523678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53939631da63bb549a5140c6ac99a1c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1301445200
 PrefabInstance:
   m_ObjectHideFlags: 0

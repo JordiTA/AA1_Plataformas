@@ -8,7 +8,9 @@ public class CharacterMovement : MonoBehaviour
     private CharacterController characterController;
 
     [SerializeField]
-    private float speed = 5f;
+    private float normalSpeed = 5f;
+    [SerializeField]
+    private float maxSpeed = 8f;
 
     [SerializeField]
     private float rotationSpeed = 10f;
@@ -44,9 +46,16 @@ public class CharacterMovement : MonoBehaviour
         Vector3 MovementInput = Quaternion.Euler(0, Camera.transform.eulerAngles.y,0) * new Vector3(movement.x, 0, movement.y);
         Vector3 movementDirection = MovementInput.normalized;
 
-        characterController.Move(movementDirection * speed * Time.deltaTime);
+        if (InputManager._INPUT_MANAGER.GetMovementValue() < 0.4f)
+        {
+            characterController.Move(movementDirection * normalSpeed * Time.deltaTime);
+        }
+        else
+        {
+            characterController.Move(movementDirection * maxSpeed * Time.deltaTime);
+        }
 
-        //FACE CAMERA FORWARD
+        //FACE CAMERA to MOVE
         if (movementDirection != Vector3.zero)
         {
             Quaternion rotation = Quaternion.LookRotation(movementDirection, Vector3.up);
@@ -72,7 +81,9 @@ public class CharacterMovement : MonoBehaviour
 
         playerVelocity.y += gravity * Time.deltaTime;
         characterController.Move(playerVelocity * Time.deltaTime);
+    }    
+    public float GetJumpValue()
+    {
+        return playerVelocity.y;
     }
-
-    
 }
