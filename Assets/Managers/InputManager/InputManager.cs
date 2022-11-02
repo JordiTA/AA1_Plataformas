@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,7 +14,12 @@ public class InputManager : MonoBehaviour
 
     //VARIABLES
     private float timeSinceJumpPressed = 0f;
+    
     private Vector2 leftAxisValue = Vector2.zero;
+    
+    private Vector2 mouseXY = Vector2.zero;
+    private float mouseX = 0f;
+    public float mouseY = 0f;
 
     private void Awake()
     {
@@ -23,12 +29,13 @@ public class InputManager : MonoBehaviour
         }
         else
         {
-            //Activar Input Action
+            //Activar input Actions
             playerInputs = new InputActions();
             playerInputs.Character.Enable();
 
-            playerInputs.Character.Jump.performed += JumpButtonPressed; // ASI SE DERIVA EN InputSystem a una FUNCION
             playerInputs.Character.Move.performed += leftAxisUpdate;
+            playerInputs.Character.Jump.performed += JumpButtonPressed;
+            playerInputs.Character.Look.performed += LookUpdate;
 
             //Dont destroy on load para cambiar de escenas
             _INPUT_MANAGER = this;
@@ -42,24 +49,39 @@ public class InputManager : MonoBehaviour
         InputSystem.Update();
     }
 
+    private void leftAxisUpdate(InputAction.CallbackContext context)
+    {
+        leftAxisValue = context.ReadValue<Vector2>();
+    }
     private void JumpButtonPressed(InputAction.CallbackContext context)
     {
         timeSinceJumpPressed = 0f;
     }
-    private void leftAxisUpdate(InputAction.CallbackContext context)
+    private void LookUpdate(InputAction.CallbackContext context)
     {
-        leftAxisValue = context.ReadValue<Vector2>();
-
-        //Debug.Log("Magnitude: " + leftAxisValue.magnitude);
-        //Debug.Log("Normalized: " + leftAxisValue.normalized);
+        mouseXY = context.ReadValue<Vector2>();
+        mouseX = mouseXY.x;
+        mouseY = mouseXY.y;
     }
-
-    public bool GetSouthButtonPressed()
+    //GET FUNCTIONS
+    public Vector2 GetMovement()
+    {
+        return leftAxisValue;
+    }
+    public bool GetJumpButtonPressed()
     {
         return this.timeSinceJumpPressed == 0f;
     }
     public float TimeSinceSouthButtonPressed()
     {
         return this.timeSinceJumpPressed;
+    }
+    public float GetMouseX()
+    {
+        return mouseX;
+    }
+    public float GetMouseY()
+    {
+        return mouseY;
     }
 }
