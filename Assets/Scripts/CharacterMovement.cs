@@ -11,6 +11,8 @@ public class CharacterMovement : MonoBehaviour
     private float normalSpeed = 5f;
     [SerializeField]
     private float maxSpeed = 8f;
+    [SerializeField]
+    private float crouchSpeed = 3f;
 
     [SerializeField]
     private float rotationSpeed = 10f;
@@ -46,13 +48,17 @@ public class CharacterMovement : MonoBehaviour
         Vector3 MovementInput = Quaternion.Euler(0, Camera.transform.eulerAngles.y,0) * new Vector3(movement.x, 0, movement.y);
         Vector3 movementDirection = MovementInput.normalized;
 
-        if (InputManager._INPUT_MANAGER.GetMovementValue() < 0.4f)
+        if (InputManager._INPUT_MANAGER.GetCrouchButton())
         {
-            characterController.Move(movementDirection * normalSpeed * Time.deltaTime);
+            characterController.Move(movementDirection * crouchSpeed * Time.deltaTime); // WALK SPEED
+        }
+        else if (InputManager._INPUT_MANAGER.GetMovementValue() < 0.4f)
+        {
+            characterController.Move(movementDirection * normalSpeed * Time.deltaTime); // WALK SPEED
         }
         else
         {
-            characterController.Move(movementDirection * maxSpeed * Time.deltaTime);
+            characterController.Move(movementDirection * maxSpeed * Time.deltaTime); // RUN SPEED
         }
 
         //FACE CAMERA to MOVE
@@ -82,7 +88,11 @@ public class CharacterMovement : MonoBehaviour
         playerVelocity.y += gravity * Time.deltaTime;
         characterController.Move(playerVelocity * Time.deltaTime);
     }    
-    public float GetJumpValue()
+    public bool GetIsAir()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, 1f);
+    }
+    public float GetVerticalSpeed()
     {
         return playerVelocity.y;
     }

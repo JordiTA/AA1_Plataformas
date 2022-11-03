@@ -1582,9 +1582,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 1
   target: {fileID: 1274523680}
-  distanceFromTarget: 5
+  distanceFromTarget: 7
   smoothTime: 0.1
-  rotationXMinMax: {x: 10, y: 40}
+  rotationXMinMax: {x: 10, y: 50}
 --- !u!1001 &531356331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4266,7 +4266,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a5480b1252f324fa85c4221e30f2a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  normalSpeed: 5
+  maxSpeed: 8
+  crouchSpeed: 3
   rotationSpeed: 10
   Camera: {fileID: 516460895}
   jumpHeight: 1
@@ -5172,7 +5174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cf5e84c4cec9b4ca31b9ede5571512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseY: 0
 --- !u!4 &1648294954
 Transform:
   m_ObjectHideFlags: 0

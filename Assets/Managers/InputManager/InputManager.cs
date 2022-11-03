@@ -13,14 +13,16 @@ public class InputManager : MonoBehaviour
     private InputActions playerInputs;
 
     //VARIABLES
+        //JUMP
     private float timeSinceJumpPressed = 0f;
-    
+        //MOVE
     private Vector2 leftAxisValue = Vector2.zero;
-    
+        //LOOK MOUSE/JOYSTICK RIGHT
     private Vector2 mouseXY = Vector2.zero;
     private float mouseX = 0f;
-    public float mouseY = 0f;
-
+    private float mouseY = 0f;
+        //CROUCH
+    private bool pressingCrouchButton = false;
     private void Awake()
     {
         if (_INPUT_MANAGER != null && _INPUT_MANAGER != this)
@@ -36,7 +38,9 @@ public class InputManager : MonoBehaviour
             playerInputs.Character.Move.performed += leftAxisUpdate;
             playerInputs.Character.Jump.performed += JumpButtonPressed;
             playerInputs.Character.Look.performed += LookUpdate;
-
+            playerInputs.Character.Crouch.performed += timeCrouchButtonPressed;
+            playerInputs.Character.Crouch.canceled += timeCrouchButtonReleased;
+            
             //Dont destroy on load para cambiar de escenas
             _INPUT_MANAGER = this;
             DontDestroyOnLoad(this);
@@ -48,30 +52,50 @@ public class InputManager : MonoBehaviour
         timeSinceJumpPressed += Time.deltaTime;
         InputSystem.Update();
     }
-
+        //MOVE
     private void leftAxisUpdate(InputAction.CallbackContext context)
     {
         leftAxisValue = context.ReadValue<Vector2>();
     }
+        //JUMP
     private void JumpButtonPressed(InputAction.CallbackContext context)
     {
         timeSinceJumpPressed = 0f;
     }
+        //LOOK
     private void LookUpdate(InputAction.CallbackContext context)
     {
         mouseXY = context.ReadValue<Vector2>();
         mouseX = mouseXY.x;
         mouseY = mouseXY.y;
     }
+        //CROUCH
+    private void timeCrouchButtonPressed(InputAction.CallbackContext context)
+    {
+        pressingCrouchButton = true;
+    }
+    private void timeCrouchButtonReleased(InputAction.CallbackContext context)
+    {
+        pressingCrouchButton = false;
+    }
+
     //GET FUNCTIONS
+    //MOVE
     public Vector2 GetMovement()
     {
         return leftAxisValue;
     }
+    public float GetMovementValue()
+    {
+        float value = leftAxisValue.x * leftAxisValue.x + leftAxisValue.y * leftAxisValue.y;
+        return value;
+    }
+        //JUMP
     public bool GetJumpButtonPressed()
     {
         return this.timeSinceJumpPressed == 0f;
     }
+        //LOOK
     public float GetMouseX()
     {
         return mouseX;
@@ -80,9 +104,9 @@ public class InputManager : MonoBehaviour
     {
         return mouseY;
     }
-    public float GetMovementValue()
+        //CROUCH
+    public bool GetCrouchButton()
     {
-        float value = leftAxisValue.x * leftAxisValue.x + leftAxisValue.y * leftAxisValue.y;
-        return value;
+        return this.pressingCrouchButton;
     }
 }

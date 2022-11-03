@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
-    private float mouseSensitivity = 3.0f;
+    private float mouseSensitivity = 1.0f;
 
     private float rotationY;
     private float rotationX;
@@ -14,13 +14,13 @@ public class CameraController : MonoBehaviour
     private Transform target;
 
     [SerializeField]
-    private float distanceFromTarget = 3.0f;
+    private float distanceFromTarget = 7f;
 
     private Vector3 currentRotation;
     private Vector3 smoothVelocity = Vector3.zero;
 
     [SerializeField]
-    private float smoothTime = 0.2f;
+    private float smoothTime = 0.1f;
 
     [SerializeField]
     private Vector2 rotationXMinMax = new Vector2(10, 50);
