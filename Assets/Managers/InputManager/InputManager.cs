@@ -29,7 +29,7 @@ public class InputManager : MonoBehaviour
     {
         if (_INPUT_MANAGER != null && _INPUT_MANAGER != this)
         {
-            Destroy(_INPUT_MANAGER); //Destruir si ya existe uno
+            Destroy(this.gameObject); //Destruir si ya existe uno
         }
         else
         {

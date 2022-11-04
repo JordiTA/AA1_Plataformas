@@ -18,7 +18,7 @@ public class SceneLoadingManager : MonoBehaviour
     {
         if (_SCENE_MANAGER != null && _SCENE_MANAGER != this)
         {
-            Destroy(_SCENE_MANAGER); //Destruir si ya existe uno
+            Destroy(this.gameObject); //Destruir si ya existe uno
         }
         else
         {
@@ -61,7 +61,6 @@ public class SceneLoadingManager : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
-
     public void coinCollected(GameObject textGameObject)
     {
         text = textGameObject.GetComponent<TextMeshProUGUI>();
