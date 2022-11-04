@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class CharacterMovement : MonoBehaviour
 
     [SerializeField]
     private Camera Camera;
+    [SerializeField]
+    private GameObject Enemy;
 
     //VARIABLES
     private Vector3 playerVelocity;
@@ -94,6 +97,13 @@ public class CharacterMovement : MonoBehaviour
     }
     public float GetVerticalSpeed()
     {
+        
         return playerVelocity.y;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision == null && collision.gameObject.tag == Enemy.tag)
+            SceneLoadingManager._SCENE_MANAGER.Lost();
     }
 }

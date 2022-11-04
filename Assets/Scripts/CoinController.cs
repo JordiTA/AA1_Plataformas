@@ -6,15 +6,21 @@ public class CoinController : MonoBehaviour
 {
     [SerializeField]
     private GameObject Player;
+    [SerializeField]
+    private GameObject TextGameObject;
 
-    private void OnCollisionEnter(Collision collision)
+    private bool canEnter = true;
+
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision != null && collision.gameObject == Player)
+        if (other.gameObject == Player && canEnter)
         {
-            SceneManager._SCENE_MANAGER.coinCollected();
+            canEnter = false;
 
-            Destroy(this);
+            SceneLoadingManager._SCENE_MANAGER.coinCollected(TextGameObject);
+
+            Destroy(this.gameObject);
         }
     }
-
+    
 }
