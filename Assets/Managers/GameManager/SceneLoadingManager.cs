@@ -41,8 +41,6 @@ public class SceneLoadingManager : MonoBehaviour
     {
         if (canChangeScene)
             SceneManager.LoadScene("Win");
-
-        
     }
     public void Lost()
     {

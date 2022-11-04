@@ -21,6 +21,9 @@ public class CharacterMovement : MonoBehaviour
 
     [SerializeField]
     private Camera Camera;
+
+    [SerializeField]
+    private Object hat;
     
 
     //VARIABLES
@@ -45,6 +48,7 @@ public class CharacterMovement : MonoBehaviour
     private void Update()
     {
         Movement();
+        HatThrow();
         if (Physics.Raycast(transform.position, -Vector3.up, out rayCastHit, 0.1f) && rayCastHit.collider.gameObject.tag == platform)
             PlatformJump();
         else
@@ -100,10 +104,15 @@ public class CharacterMovement : MonoBehaviour
     }    
     private void PlatformJump()
     {
-        playerVelocity.y += Mathf.Sqrt(jumpHeight * -7.0f * gravity);
+        playerVelocity.y += Mathf.Sqrt(jumpHeight * -5.0f * gravity);
 
         playerVelocity.y += gravity * Time.deltaTime;
         characterController.Move(playerVelocity * Time.deltaTime);
+    }
+    private void HatThrow()
+    {
+        if (InputManager._INPUT_MANAGER.GetHatButtonPressed())
+            Object.Instantiate(hat, this.transform.position, this.transform.rotation);
     }
     public bool GetIsAir()
     {

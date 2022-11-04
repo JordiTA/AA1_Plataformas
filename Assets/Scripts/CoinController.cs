@@ -22,5 +22,4 @@ public class CoinController : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    
 }

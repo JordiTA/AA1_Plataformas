@@ -23,6 +23,8 @@ public class InputManager : MonoBehaviour
     private float mouseY = 0f;
         //CROUCH
     private bool pressingCrouchButton = false;
+        //HAT
+    private float pressingHatButton = 0f;
     private void Awake()
     {
         if (_INPUT_MANAGER != null && _INPUT_MANAGER != this)
@@ -40,6 +42,7 @@ public class InputManager : MonoBehaviour
             playerInputs.Character.Look.performed += LookUpdate;
             playerInputs.Character.Crouch.performed += timeCrouchButtonPressed;
             playerInputs.Character.Crouch.canceled += timeCrouchButtonReleased;
+            playerInputs.Character.Hat.performed += HatButtonPressed;
             
             //Dont destroy on load para cambiar de escenas
             _INPUT_MANAGER = this;
@@ -50,6 +53,7 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         timeSinceJumpPressed += Time.deltaTime;
+        pressingHatButton += Time.deltaTime;
         InputSystem.Update();
     }
         //MOVE
@@ -78,9 +82,15 @@ public class InputManager : MonoBehaviour
     {
         pressingCrouchButton = false;
     }
+        //HAT
+    private void HatButtonPressed(InputAction.CallbackContext context)
+    {
+        pressingHatButton = 0f;
+    }
+
 
     //GET FUNCTIONS
-    //MOVE
+        //MOVE
     public Vector2 GetMovement()
     {
         return leftAxisValue;
@@ -108,5 +118,14 @@ public class InputManager : MonoBehaviour
     public bool GetCrouchButton()
     {
         return this.pressingCrouchButton;
+    }
+        //HAT
+    public bool GetHatButtonPressed()
+    {
+        return this.pressingHatButton == 0;
+    }
+    public float GetTimeHatButton()
+    {
+        return this.pressingHatButton;
     }
 }

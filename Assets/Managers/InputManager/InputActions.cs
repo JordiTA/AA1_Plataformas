@@ -62,6 +62,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Hold(duration=1.401298E-45)"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Hat"",
+                    ""type"": ""Button"",
+                    ""id"": ""1838bd18-5cd0-4b66-ab1c-20481af5fb10"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -196,6 +205,28 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""26470ef4-3b4c-4072-b607-358ce9f8cf44"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3cc5844-dbea-4d1e-9eac-9c85fb9df1f1"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -208,6 +239,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Character_Move = m_Character.FindAction("Move", throwIfNotFound: true);
         m_Character_Jump = m_Character.FindAction("Jump", throwIfNotFound: true);
         m_Character_Crouch = m_Character.FindAction("Crouch", throwIfNotFound: true);
+        m_Character_Hat = m_Character.FindAction("Hat", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -271,6 +303,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_Move;
     private readonly InputAction m_Character_Jump;
     private readonly InputAction m_Character_Crouch;
+    private readonly InputAction m_Character_Hat;
     public struct CharacterActions
     {
         private @InputActions m_Wrapper;
@@ -279,6 +312,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Character_Move;
         public InputAction @Jump => m_Wrapper.m_Character_Jump;
         public InputAction @Crouch => m_Wrapper.m_Character_Crouch;
+        public InputAction @Hat => m_Wrapper.m_Character_Hat;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -300,6 +334,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Crouch.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnCrouch;
+                @Hat.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHat;
+                @Hat.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHat;
+                @Hat.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHat;
             }
             m_Wrapper.m_CharacterActionsCallbackInterface = instance;
             if (instance != null)
@@ -316,6 +353,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
+                @Hat.started += instance.OnHat;
+                @Hat.performed += instance.OnHat;
+                @Hat.canceled += instance.OnHat;
             }
         }
     }
@@ -326,5 +366,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnHat(InputAction.CallbackContext context);
     }
 }

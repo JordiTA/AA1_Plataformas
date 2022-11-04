@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "Hold(duration=1.401298E-45)",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Hat",
+                    "type": "Button",
+                    "id": "1838bd18-5cd0-4b66-ab1c-20481af5fb10",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -172,6 +181,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "26470ef4-3b4c-4072-b607-358ce9f8cf44",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hat",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e3cc5844-dbea-4d1e-9eac-9c85fb9df1f1",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
