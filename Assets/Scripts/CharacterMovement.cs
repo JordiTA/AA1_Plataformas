@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour
@@ -20,10 +21,13 @@ public class CharacterMovement : MonoBehaviour
 
     [SerializeField]
     private Camera Camera;
-    [SerializeField]
-    private GameObject Enemy;
+    
 
     //VARIABLES
+    private string enemy = "Enemy";
+    private string platform = "Platform";
+    private RaycastHit rayCastHit;
+
     private Vector3 playerVelocity;
     private bool isGrounded = true;
     private float jumpCount = 0f;
@@ -41,7 +45,10 @@ public class CharacterMovement : MonoBehaviour
     private void Update()
     {
         Movement();
-        Jump();
+        if (Physics.Raycast(transform.position, -Vector3.up, out rayCastHit, 0.1f) && rayCastHit.collider.gameObject.tag == platform)
+            PlatformJump();
+        else
+            Jump();
     }
     private void Movement()
     {
@@ -91,6 +98,13 @@ public class CharacterMovement : MonoBehaviour
         playerVelocity.y += gravity * Time.deltaTime;
         characterController.Move(playerVelocity * Time.deltaTime);
     }    
+    private void PlatformJump()
+    {
+        playerVelocity.y += Mathf.Sqrt(jumpHeight * -7.0f * gravity);
+
+        playerVelocity.y += gravity * Time.deltaTime;
+        characterController.Move(playerVelocity * Time.deltaTime);
+    }
     public bool GetIsAir()
     {
         return Physics.Raycast(transform.position, -Vector3.up, 1f);
@@ -101,9 +115,12 @@ public class CharacterMovement : MonoBehaviour
         return playerVelocity.y;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (collision == null && collision.gameObject.tag == Enemy.tag)
+        if (hit != null && hit.gameObject.tag == enemy)
+        {
             SceneLoadingManager._SCENE_MANAGER.Lost();
+        }
     }
+    
 }
