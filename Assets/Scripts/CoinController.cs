@@ -13,6 +13,7 @@ public class CoinController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("aaaa");
         if (other.gameObject == Player && canEnter)
         {
             canEnter = false;

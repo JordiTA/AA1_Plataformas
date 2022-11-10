@@ -30,7 +30,8 @@ public class SceneLoadingManager : MonoBehaviour
 
     private void Update()
     {
-        if (coins < 1)
+        Debug.Log("Update: "+this.coins);
+        if (this.coins < 1)
         {
             Win();
             canChangeScene = false;
@@ -49,7 +50,9 @@ public class SceneLoadingManager : MonoBehaviour
     }
     public void Play()
     {
+        Debug.Log("AAas");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        this.coins = 10f;
     }
     public void MainMenu()
     {
@@ -64,7 +67,7 @@ public class SceneLoadingManager : MonoBehaviour
     public void coinCollected(GameObject textGameObject)
     {
         text = textGameObject.GetComponent<TextMeshProUGUI>();
-        coins--;
-        text.text = coins.ToString();
+        this.coins = this.coins - 1;
+        text.text = this.coins.ToString();
     }
 }

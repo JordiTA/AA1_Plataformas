@@ -37,11 +37,16 @@ public class InputManager : MonoBehaviour
             playerInputs = new InputActions();
             playerInputs.Character.Enable();
 
+            //MOVE
             playerInputs.Character.Move.performed += leftAxisUpdate;
+            //JUMP
             playerInputs.Character.Jump.performed += JumpButtonPressed;
+            //LOOK
             playerInputs.Character.Look.performed += LookUpdate;
+            //CROUCH
             playerInputs.Character.Crouch.performed += timeCrouchButtonPressed;
             playerInputs.Character.Crouch.canceled += timeCrouchButtonReleased;
+            //HAT
             playerInputs.Character.Hat.performed += HatButtonPressed;
             
             //Dont destroy on load para cambiar de escenas
